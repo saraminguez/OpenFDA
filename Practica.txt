@@ -1,0 +1,44 @@
+Sara Mínguez Monedero 
+Ampliada 4 
+he hecho esto <input type="number" name="limit"></input> para meter el limite
+El limite lo puedo meter en todos los sitio ya que he creado un parseador para la url 
+def URL_parser(self): 
+		diccionario={}
+		lista=self.path.split('?')
+		if len(lista)<2: 
+			return diccionario
+		for item in lista[1].split('&'): 
+			aux=item.split('=')
+			diccionario[aux[0]]=aux[1]
+		return diccionario
+
+def get_drug_search(drug_search,limit='10'):
+		conn = http.client.HTTPSConnection(OpenFDAClient.OPENFDA_API_URL)
+		conn.request("GET", OpenFDAClient.OPENFDA_API_EVENT + '?limit='+ limit + OpenFDAClient.OPENFDA_API_DRUG + drug_search) 
+		r1 = conn.getresponse()
+		data1=r1.read()
+		data=data1.decode("utf8")
+		return json.loads(data)
+
+	def get_companies_search(company_search, limit='10'):
+		conn = http.client.HTTPSConnection(OpenFDAClient.OPENFDA_API_URL)
+		conn.request("GET", OpenFDAClient.OPENFDA_API_EVENT + '?limit='+ limit + OpenFDAClient.OPENFDA_API_COMPANY + company_search) 
+		r1 = conn.getresponse()
+		data1=r1.read()
+		data=data1.decode("utf8")
+		return json.loads(data)
+
+He creado un botón para volver a la página principal
+	def get_error404_html():
+		return """
+		<html>
+			<head>
+				<title>OpenFDA Cool App</title>
+			</head>
+			<body>
+				El recurso pedido no existe. </br>
+			<a href='/'> Pagina principal</a>
+			</body>
+		</html>
+		"""
+
